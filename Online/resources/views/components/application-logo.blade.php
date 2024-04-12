@@ -1,1 +1,1 @@
-<img src='{{Storage::url("logo/logo.png")}}' alt="logo">
+<img src='{{Storage::url("logo/logo.png")}}' style="width:300px" alt="logo">

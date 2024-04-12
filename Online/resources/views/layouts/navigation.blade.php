@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img src="{{Storage::url('logo/logo.png')}}" style="width:200px" alt="logo">
                     </a>
                 </div>
 
@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
             </div>
-
+            
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -98,3 +98,4 @@
         </div>
     </div>
 </nav>
+
