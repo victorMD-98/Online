@@ -24,7 +24,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10)
+            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
+            'background-img'=>'https://picsum.photos/200/300.jpg'
         ];
     }
 

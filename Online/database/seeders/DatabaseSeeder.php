@@ -20,14 +20,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'surname'=>'admin',
             'email' => 'admin@example.com',
-            'password'=> Hash::make('password') 
+            'password'=> Hash::make('password'),
+            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
+            'background-img'=>'https://picsum.photos/200/300.jpg' 
         ]);
 
         User::factory()->create([
             'name' => 'utente',
             'surname'=>'utente',
             'email' => 'utente@example.com',
-            'password'=> Hash::make('password') 
+            'password'=> Hash::make('password'),
+            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
+            'background-img'=>'https://picsum.photos/200/300.jpg' 
         ]);
 
         $this->call([
