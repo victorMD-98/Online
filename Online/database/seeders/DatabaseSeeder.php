@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password'=> Hash::make('password'),
             'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
-            'background-img'=>'https://picsum.photos/200/300.jpg' 
+            'background_img'=>'https://picsum.photos/200/300.jpg' 
         ]);
 
         User::factory()->create([
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'utente@example.com',
             'password'=> Hash::make('password'),
             'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
-            'background-img'=>'https://picsum.photos/200/300.jpg' 
+            'background_img'=>'https://picsum.photos/200/300.jpg' 
         ]);
 
         $this->call([

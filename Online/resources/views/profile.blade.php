@@ -1,3 +1,8 @@
+<?php
+    //var_dump($user);
+    // print_r($UserPosts)
+?>
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -6,6 +11,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    
   
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -24,8 +30,16 @@
 
             <!-- Page Content -->
             <main>
-                <div class="container text-white" >
-                
+                <div class="container text-white my-10" >
+                    <div class="relative" >
+                        <img class="backImg" src='{{$user[0]->background_img}}' alt="back-img">
+                        <div class="absolute top-44 left-2" >
+                            <div>
+                                <img class="rounded-full profileImg" src='{{$user[0]->image}}' alt="profile-img">
+                            </div>
+                        </div>
+                        <p class="ns mt-20 " >{{$user[0]->name}} {{$user[0]->surname}}</p>
+                    </div>
                 </div>
             </main>
         </div>

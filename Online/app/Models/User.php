@@ -25,7 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
-        'background-img'
+        'background_img'
     ];
 
 

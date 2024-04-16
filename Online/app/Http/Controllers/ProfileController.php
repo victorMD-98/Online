@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     public function index (){
-        $user = Auth::user();
-        return view('profile',['user'=>$user]);
+        $user = User::where('id',Auth::user()->id)->get() ;
+        $UserPosts= Post::where('user_id',Auth::user()->id)->with('media')->get();
+         return view('profile',['user'=>$user,'UserPosts'=>$UserPosts]);
+        
     }
 
     /**
