@@ -28,8 +28,9 @@ class FollowerFactory extends Factory
     public function definition(): array
     {
         return [
-            'followed_user_id'=> $this->getRandomUserId(),
-            'folowing_user_id'=> $this->getRandomUserId()
+            
+            'follower_user_id'=> $this->getRandomUserId(),
+            'following_user_id'=> $this->getRandomUserId()
         ];
     }
 }

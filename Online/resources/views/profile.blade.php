@@ -11,7 +11,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
   
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -38,7 +40,13 @@
                                 <img class="rounded-full profileImg" src='{{$user[0]->image}}' alt="profile-img">
                             </div>
                         </div>
-                        <p class="ns mt-20 " >{{$user[0]->name}} {{$user[0]->surname}}</p>
+                        <div class="mt-20 flex" >
+                            <p class="ns ms-4 me-5" >{{$user[0]->name}} {{$user[0]->surname}}</p>
+                            <p class="ns mx-5"> <span class="font-black" >{{$UserPosts->count()}}</span> posts</p>
+                            <p class="ns mx-5"> <span class="font-black">{{$followers->count()}}</span>  followers</p>
+                            <p class="ns mx-5"> <span class="font-black">{{$followings->count()}}</span> following</p>
+                        </div>
+                        
                     </div>
                 </div>
             </main>

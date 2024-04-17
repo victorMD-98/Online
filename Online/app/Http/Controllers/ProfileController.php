@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Follower;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -15,10 +16,13 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     public function index (){
-        $user = User::where('id',Auth::user()->id)->get() ;
+        $userAuth = User::where('id',Auth::user()->id)->get() ;
         $UserPosts= Post::where('user_id',Auth::user()->id)->with('media')->get();
-         return view('profile',['user'=>$user,'UserPosts'=>$UserPosts]);
-        
+        // Ottenere i seguaci di un utente
+        $user = User::find(Auth::user()->id);
+        $followings = $user->following;
+        $followers = $user->followers;
+        return view('profile',['user'=>$userAuth,'UserPosts'=>$UserPosts,'followers'=>$followers,'followings'=>$followings]);
     }
 
     /**
