@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 return new class extends Migration
 {
@@ -19,8 +20,8 @@ return new class extends Migration
             $table->boolean("state")->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image')->default("https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg");
-            $table->string('background_img')->nullable();
+            $table->string('image')->default(Storage::url("default/avatar.png"));
+            $table->string('background_img')->default(Storage::url("default/sfondo.jpg"));
             $table->rememberToken();
             $table->timestamps();
         });

@@ -23,6 +23,7 @@ class ProfileController extends Controller
         $followings = $user->following;
         $followers = $user->followers;
         return view('profile',['user'=>$userAuth,'UserPosts'=>$UserPosts,'followers'=>$followers,'followings'=>$followings]);
+        //return $UserPosts;
     }
 
     /**

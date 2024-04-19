@@ -1,5 +1,5 @@
 <?php
-    //var_dump($user);
+    //print_r($followings);
     // print_r($UserPosts)
 ?>
 
@@ -28,11 +28,10 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white ">
-            @include('layouts.navigation')
 
-            <!-- Page Content -->
-            <main>
-                <div class="container text-white my-10" >
+            <header>
+            @include('layouts.navigation')
+                <div class="container text-white my-10 border-bottom border-light" >
                     <div class="relative" >
                         <img class="backImg" src='{{$user[0]->background_img}}' alt="back-img">
                         <div class="absolute top-44 left-2" >
@@ -40,16 +39,65 @@
                                 <img class="rounded-full profileImg" src='{{$user[0]->image}}' alt="profile-img">
                             </div>
                         </div>
-                        <div class="mt-20 flex" >
+                        <div class="mt-20 flex mb-5" >
                             <p class="ns ms-4 me-5" >{{$user[0]->name}} {{$user[0]->surname}}</p>
-                            <p class="ns mx-5"> <span class="font-black" >{{$UserPosts->count()}}</span> posts</p>
-                            <p class="ns mx-5"> <span class="font-black">{{$followers->count()}}</span>  followers</p>
-                            <p class="ns mx-5"> <span class="font-black">{{$followings->count()}}</span> following</p>
+                            <p class="ns mx-5"><span class="font-black" >{{$UserPosts->count()}}</span> posts</p>
+                            <p class="ns mx-5"> 
+                                <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalFollowers">
+                                    <span class="font-black">{{$followers->count()}}</span>  followers
+                                </button>
+                            </p>
+                            <p class="ns mx-5"> 
+                                <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalFollowing">
+                                    <span class="font-black">{{$followings->count()}}</span> following
+                                </button>
+                            </p>
                         </div>
-                        
                     </div>
                 </div>
+            </header>
+            <main>
+                <div class="container flex" >
+                    @foreach($UserPosts as $key => $post)
+                        <x-post :post="$post" :key="$key" />
+                        <x-modal-post :post="$post" :user="$user" :key="$key" />
+                    @endforeach
+                </div>
             </main>
+             <!-- Modal following -->
+             <div class="modal fade " id="exampleModalFollowers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Followers</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <x-follower :followers="$followers" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- Modal following -->
+                <div class="modal fade " id="exampleModalFollowing" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Following</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <x-following :followings="$followings" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                </div>
         </div>
     </body>
 </html>

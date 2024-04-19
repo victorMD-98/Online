@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,8 +31,8 @@ class DatabaseSeeder extends Seeder
             'surname'=>'utente',
             'email' => 'utente@example.com',
             'password'=> Hash::make('password'),
-            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
-            'background_img'=>'https://picsum.photos/200/300.jpg' 
+            'image'=>Storage::url("default/avatar.png"),
+            'background_img'=>Storage::url("default/sfondo.jpg") 
         ]);
 
         $this->call([

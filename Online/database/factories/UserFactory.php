@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -24,8 +25,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'image'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
-            'background_img'=>'https://picsum.photos/200/300.jpg'
+            'image'=>Storage::url("default/avatar.png"),
+            'background_img'=>Storage::url("default/sfondo.jpg")
         ];
     }
 
