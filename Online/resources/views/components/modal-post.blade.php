@@ -9,35 +9,33 @@
             </div>
             <div class="modal-body">
                 @if($post->media->count()>1)
-                <!-- inizio carousel -->
-                <div id="carouselExample" class="carousel slide">
+                <div id="carouselExample{{$key}}" class="carousel slide">
                     <div class="carousel-inner">
-                        @foreach($post->media as $media)
-                            <div class="carousel-item active">
-                                <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalPost">
-                                    <img class="postImg" src="{{$media->media}}" alt="post-img">
-                                </button>
+                        @foreach($post->media as $ind=> $media)
+                            <div class="carousel-item @if($ind === 0) active @endif ">
+                                    <img class="modalImg" src="{{$media->media}}" alt="post-img">
                             </div>
                         @endforeach
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                    </div>                   
+                    
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample{{$key}}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample{{$key}}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    
+                    @else
+                        <div>
+                            <img class="modalImg" src="{{$post->media[0]->media}}" alt="">
+                        </div> 
+                    @endif                   
                 </div>
-                <!-- fine carousel -->
-                @else
-                    <img src="{{$post->media[0]->media}}" alt="">
-                @endif
-                
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
