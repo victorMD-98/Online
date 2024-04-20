@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
-  
+    <link rel="stylesheet" href="resources/css/prova.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         <title>{{ config('app.name', 'Laravel') }}</title>
@@ -25,6 +25,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite('resources/css/prova.css')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white ">
@@ -35,8 +36,15 @@
                     <div class="relative" >
                         <img class="backImg" src='{{$user[0]->background_img}}' alt="back-img">
                         <div class="absolute top-44 left-2" >
-                            <div>
+                            <div class="position-relative divv rounded-full">
+                           
                                 <img class="rounded-full profileImg" src='{{$user[0]->image}}' alt="profile-img">
+                                <div class=" d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle label">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <label for="my-file-input"><img class="imgp" src="https://st2.depositphotos.com/2498595/5736/v/450/depositphotos_57364439-stock-illustration-photo-camera-icon.jpg" alt=""></label>
+                                        <input type="file" id="my-file-input" name="image" class="inpFile" >
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="mt-20 flex mb-5" >
