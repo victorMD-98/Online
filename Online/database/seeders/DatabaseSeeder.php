@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
             'surname'=>'utente',
             'email' => 'utente@example.com',
             'password'=> Hash::make('password'),
-            'image'=>Storage::url("default/avatar.png"),
-            'background_img'=>Storage::url("default/sfondo.jpg") 
+            'image'=>"default/avatar.png",
+            'background_img'=>"default/sfondo.jpg" 
         ]);
 
         $this->call([

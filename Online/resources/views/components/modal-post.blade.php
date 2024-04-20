@@ -4,7 +4,7 @@
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-            <img class="rounded-full fImg" src="{{ $user[0]->image }}" alt=""> <span class="mt-2 ms-2">{{ $user[0]->name }}</span>
+            <img class="rounded-full fImg" src="{{Storage::url($user->image)}}" alt=""> <span class="mt-2 ms-2">{{ $user->name }}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

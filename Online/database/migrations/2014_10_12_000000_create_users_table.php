@@ -20,8 +20,8 @@ return new class extends Migration
             $table->boolean("state")->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image')->default(Storage::url("default/avatar.png"));
-            $table->string('background_img')->default(Storage::url("default/sfondo.jpg"));
+            $table->string('image')->default("default/avatar.png");
+            $table->string('background_img')->default("default/sfondo.jpg");
             $table->rememberToken();
             $table->timestamps();
         });
