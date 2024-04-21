@@ -87,7 +87,9 @@ class ProfileController extends Controller
             }
             $file->storeAS('public/profile_img',$filename);
             $userImg->update(['image'=>'profile_img/'.$filename]);
-        }elseif($request->has('imageBack')){
+        }
+        
+        if($request->has('imageBack')){
             $file = $request->file('imageBack');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;

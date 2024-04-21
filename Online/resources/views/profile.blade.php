@@ -64,8 +64,8 @@ if(Storage::exists("profile_img/1713649125.png")){
                                 <form action="{{url('/profile/'.$user->id.'/updateProfImg')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
-                                        <label for="my-file-input"><img class="imgp" src="https://st2.depositphotos.com/2498595/5736/v/450/depositphotos_57364439-stock-illustration-photo-camera-icon.jpg" alt=""></label>
-                                        <input type="file" id="my-file-input" name="image" class="inpFile" >
+                                        <label for="my-file-input2"><img class="imgp" src="https://st2.depositphotos.com/2498595/5736/v/450/depositphotos_57364439-stock-illustration-photo-camera-icon.jpg" alt=""></label>
+                                        <input type="file" id="my-file-input2" name="image" class="inpFile" >
                                         <button type="submit" class="btn btn-dark">Dark</button>
                                 </form>
                                 </div>
@@ -90,10 +90,12 @@ if(Storage::exists("profile_img/1713649125.png")){
             </header>
             <main>
                 <div class="container flex" >
+                    
                     @foreach($UserPosts as $key => $post)
                         <x-post :post="$post" :key="$key" />
                         <x-modal-post :post="$post" :user="$user" :key="$key" />
                     @endforeach
+                    
                 </div>
                 
             </main>
