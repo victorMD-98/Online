@@ -14,9 +14,6 @@
 // }else{
 //     echo "non esiste";
 // }
-if(isset($_SESSION['status'])){
-    echo $_SESSION['status'];
-}
  
 ?>
 
@@ -92,12 +89,12 @@ if(isset($_SESSION['status'])){
                 </div>
             </header>
             <main>
-                <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCreatePost">
-                        Launch demo modal
+                <div class="container-sm" >
+                    <button type="button" class="btn btn-secondary float-end me-5 fs-5" data-bs-toggle="modal" data-bs-target="#exampleModalCreatePost">
+                        <i class="bi bi-plus-square-fill"></i>
                     </button>
                 </div>
-                <div class="container w-100 d-flex" >
+                <div class="container-md w-100 d-flex flex-wrap pt-3" >
                     
                     @foreach($UserPosts as $key => $post)
                         <x-post :post="$post" :key="$key" />
