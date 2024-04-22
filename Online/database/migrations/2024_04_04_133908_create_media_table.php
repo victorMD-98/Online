@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('post_id');
             $table->foreign('post_id')->on('posts')->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->string('media');
-            $table->integer('position');
             $table->timestamps();
         });
     }

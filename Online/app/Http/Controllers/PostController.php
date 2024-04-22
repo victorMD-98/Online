@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -22,15 +26,36 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StorePostRequest $request)
-    {
-        //
+    {   
+        $request->validate([
+            'images.*'=> 'required|image|mimes:jpeg,png,jpg'
+        ]);
+        $data=[];
+        $data['user_id']=Auth::user()->id;
+        $data['created_at']=Carbon::now();
+        $post=Post::create($data);   
+        $media=[];
+        if($files=$request->file('images')){
+            foreach($files as $file){
+                $extension = $file->getClientOriginalExtension();
+                $filename =Str::uuid() . '.' . $extension;
+                $file->storeAs('public/post_images',$filename);
+                $media[]=[
+                    'post_id'=>$post->id,
+                    'media'=>'post_images/'.$filename
+                ];
+                
+            }
+        }
+        Media::insert($media);
+        return redirect('profile/auth');
     }
 
     /**

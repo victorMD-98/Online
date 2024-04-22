@@ -19,8 +19,7 @@ class MediaFactory extends Factory
     {
         return [
             'post_id'=>Post::get()->random()->id,
-            'media'=>'https://source.unsplash.com/random/?person='.fake()->numberBetween(1,10),
-            'position'=>1
+            'media'=>'default/sfondo.jpg'
         ];
     }
 }

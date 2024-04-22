@@ -9,12 +9,15 @@
 // } else {
 //     echo "La directory non ha i permessi di scrittura.";
 // }
-if(Storage::exists("profile_img/1713649125.png")){
-    echo "esite";
-}else{
-    echo "non esiste";
+// if(Storage::exists("profile_img/1713649125.png")){
+//     echo "esite";
+// }else{
+//     echo "non esiste";
+// }
+if(isset($_SESSION['status'])){
+    echo $_SESSION['status'];
 }
-
+ 
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +48,7 @@ if(Storage::exists("profile_img/1713649125.png")){
         <div class="min-h-screen bg-gray-100 bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white ">
 
             <header>
-            @include('layouts.navigation')
+                @include('layouts.navigation')
                 <div class="container text-white my-10 border-bottom border-light" >
                     <div class="relative" >
                         <img class="backImg" src='{{Storage::url($user->background_img)}}' alt="back-img">
@@ -71,7 +74,7 @@ if(Storage::exists("profile_img/1713649125.png")){
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-20 flex mb-5" >
+                        <div class="mt-28 flex mb-5" >
                             <p class="ns ms-4 me-5" >{{$user->name}} {{$user->surname}}</p>
                             <p class="ns mx-5"><span class="font-black" >{{$UserPosts->count()}}</span> posts</p>
                             <p class="ns mx-5"> 
@@ -89,31 +92,38 @@ if(Storage::exists("profile_img/1713649125.png")){
                 </div>
             </header>
             <main>
-                <div class="container flex" >
+                <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCreatePost">
+                        Launch demo modal
+                    </button>
+                </div>
+                <div class="container w-100 d-flex" >
                     
                     @foreach($UserPosts as $key => $post)
                         <x-post :post="$post" :key="$key" />
-                        <x-modal-post :post="$post" :user="$user" :key="$key" />
+                        
                     @endforeach
-                    
                 </div>
                 
             </main>
-            
-             <!-- Modal following -->
+                    @foreach($UserPosts as $key => $post)
+                        
+                        <x-modal-post :post="$post" :user="$user" :key="$key" />
+                    @endforeach
+             <!-- Modal followers -->
              <div class="modal fade " id="exampleModalFollowers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Followers</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            <x-follower :followers="$followers" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Followers</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <x-follower :followers="$followers" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -121,16 +131,42 @@ if(Storage::exists("profile_img/1713649125.png")){
                 <div class="modal fade " id="exampleModalFollowing" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Following</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Following</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <x-following :followings="$followings" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <x-following :followings="$followings" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+                        </div>
+                </div>
+                <!-- Modal createPost -->
+                <div class="modal fade " id="exampleModalCreatePost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <form action="/post" method="post" enctype="multipart/form-data" >
+                                         @csrf
+                                         <div class="mb-3">
+                                            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                                            <input class="form-control" name="images[]" type="file" id="formFileMultiple" multiple>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                   </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    
+                                </div>
+                                
                             </div>
                         </div>
                 </div>

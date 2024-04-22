@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $followings = $user->following;
         $followers = $user->followers;
         return view('profile',['user'=>$userAuth,'UserPosts'=>$UserPosts,'followers'=>$followers,'followings'=>$followings]);
-        //return $userAuth;
+        //return $UserPosts;
     }
 
     /**
@@ -77,6 +77,12 @@ class ProfileController extends Controller
     }
 
     public function updateProfImg (Request $request, int $id){
+
+        $request->validate([
+            'image'=> 'image|mimes:jpeg,png,jpg',
+            'imageBack'=> 'image|mimes:jpeg,png,jpg'
+        ]);
+
         $userImg=User::findOrFail($id);
         if($request->has('image')){
             $file = $request->file('image');
@@ -99,9 +105,6 @@ class ProfileController extends Controller
             $file->storeAS('public/back_img',$filename);
             $userImg->update(['background_img'=>'back_img/'.$filename]);
         }
-        
-
-
         
        return redirect()->back()->with('status','image updated');
     }
