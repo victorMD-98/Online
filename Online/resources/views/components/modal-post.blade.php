@@ -30,7 +30,7 @@
                 </div>
                     @else
                         <div>
-                            <img class="modalImg" src="{{$post->media[0]->media}}" alt="">
+                            <img class="modalImg" src="{{Storage::url($post->media[0]->media)}}" alt="post-img">
                         </div> 
                     @endif                   
                 

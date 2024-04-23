@@ -29,6 +29,15 @@ class ProfileController extends Controller
         //return $UserPosts;
     }
 
+    public function profile(int $id){
+        $user = User::with(['posts.media'])->find($id);
+        $userID=User::find($id);
+        $followings = $userID->following;
+        $followers = $userID->followers;
+        return view('userProfile',['user'=>$user,'followers'=>$followers,'followings'=>$followings]);
+        //return $user;
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -88,8 +97,8 @@ class ProfileController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
-            if (Storage::exists($userImg->image!="default/avatar.png")) {
-                Storage::delete($userImg->image);
+            if (Storage::disk('public')->exists($userImg->image) && $userImg->image != 'default/avatar.png') {
+                Storage::disk('public')->delete($userImg->image);
             }
             $file->storeAS('public/profile_img',$filename);
             $userImg->update(['image'=>'profile_img/'.$filename]);

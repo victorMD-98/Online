@@ -17,6 +17,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite('resources/css/prova.css')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 bg-gray-100 bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
@@ -33,7 +34,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class="container " >
+                <div class="container" >
                     {{ $slot }}
                 </div>
             </main>
