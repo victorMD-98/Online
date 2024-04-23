@@ -18,10 +18,8 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     public function index (){
-        //$userAuth = User::where('id',Auth::user()->id)->get() ;
         $userAuth = Auth::user() ;
-        $UserPosts= Post::where('user_id',Auth::user()->id)->with('media')->get();
-        // Ottenere i seguaci di un utente
+        $UserPosts= Post::where('user_id',Auth::user()->id)->with('media')->with('comments')->with('likes')->get();
         $user = User::find(Auth::user()->id);
         $followings = $user->following;
         $followers = $user->followers;
@@ -30,12 +28,15 @@ class ProfileController extends Controller
     }
 
     public function profile(int $id){
+        $userAuth = User::find(Auth::user()->id);
+        $followingsAuth = $userAuth->following;
+        $followersAuth = $userAuth->followers;
         $user = User::with(['posts.media'])->find($id);
         $userID=User::find($id);
         $followings = $userID->following;
         $followers = $userID->followers;
-        return view('userProfile',['user'=>$user,'followers'=>$followers,'followings'=>$followings]);
-        //return $user;
+        return view('userProfile',['user'=>$user,'followers'=>$followers,'followings'=>$followings,'followingsAuth'=>$followingsAuth,'followersAuth'=>$followersAuth]);
+        //return $followingsAuth;
     }
 
     /**
@@ -108,8 +109,8 @@ class ProfileController extends Controller
             $file = $request->file('imageBack');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
-            if (Storage::exists($userImg->background_img!="default/sfondo.jpg")) {
-                Storage::delete($userImg->background_img);
+            if (Storage::disk('public')->exists($userImg->background_img) && $userImg->background_img != 'default/sfondo.jpg') {
+                Storage::disk('public')->delete($userImg->background_img);
             }
             $file->storeAS('public/back_img',$filename);
             $userImg->update(['background_img'=>'back_img/'.$filename]);

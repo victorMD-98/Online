@@ -33,13 +33,26 @@
 
                         <div class="absolute top-44 left-2" >
                             <div class="position-relative divv rounded-full">
-                           
                                 <img class="rounded-full profileImg" src='{{Storage::url($user->image)}}' alt="profile-img">
-                                
                             </div>
                         </div>
-                        <div class="mt-28 flex mb-5" >
-                            <p class="ns ms-4 me-5" >{{$user->name}} {{$user->surname}}</p>
+                        <div class="mt-28 mb-5" >
+                            <div class="d-flex" >
+                                <p class="ns ms-5 me-5" >{{$user->name}} {{$user->surname}}</p>
+                                @if($followingsAuth->contains('id',$user->id))
+                                    <form action="{{url('followDelete/'.$user->id)}}" method="post" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-secondary">Following</button>
+                                    </form>
+                                @else
+                                    <form action="{{url('follow/'.$user->id)}}" method="post">
+                                    @csrf
+                                        <button type="submit" class="btn btn-primary">Follow</button>
+                                    </form>
+                                @endif
+                                
+                            </div>
                             <p class="ns mx-5"><span class="font-black" >{{$user->posts->count()}}</span> posts</p>
                             <p class="ns mx-5"> 
                                 <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalFollowers">

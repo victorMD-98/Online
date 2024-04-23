@@ -33,7 +33,9 @@
                             <img class="modalImg" src="{{Storage::url($post->media[0]->media)}}" alt="post-img">
                         </div> 
                     @endif                   
-                
+                <div>
+                    
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>

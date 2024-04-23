@@ -7,6 +7,7 @@ use App\Http\Requests\StoreFollowerRequest;
 use App\Http\Requests\UpdateFollowerRequest;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class FollowerController extends Controller
@@ -67,8 +68,41 @@ class FollowerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Follower $follower)
+    public function destroy(Follower $follower,int $id)
     {
-        //
+        $follower = Follower::where('follower_user_id', Auth::user()->id)
+        ->where('following_user_id', $id)
+        ->first();
+
+        if ($follower) {
+        $follower->delete();
+        }
+
+        return redirect()->back();
     }
+
+    public function follow(Follower $follower,int $id)
+    {
+        $data=[];
+        $data[]=[
+            'follower_user_id'=>Auth::user()->id,
+            'following_user_id'=>$id,
+        ];
+        Follower::insert($data);
+        return redirect()->back();
+    }
+
+    // public function remove(Follower $follower,int $id)
+    // {
+    //     $follower = Follower::where('follower_user_id', Auth::user()->id)
+    //     ->where('following_user_id', $id)
+    //     ->first();
+
+    //     if ($follower) {
+    //     $follower->delete();
+    //     }
+
+    //     return redirect()->back();
+    // }
+    
 }

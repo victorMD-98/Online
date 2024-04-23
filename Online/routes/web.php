@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/{id}/updateProfImg', [ProfileController::class, 'updateProfImg'])->name('profile.updateProfImg');
     Route::get('/profile/{id}', [ProfileController::class, 'profile']);
     Route::resource('/post',PostController::class);
+    Route::post('/follow/{id}',[FollowerController::class,'follow']);
+    Route::delete('/followDelete/{id}',[FollowerController::class,'destroy']);
 });
 
 
