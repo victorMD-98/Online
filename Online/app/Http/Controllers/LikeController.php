@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Http\Requests\StoreLikeRequest;
 use App\Http\Requests\UpdateLikeRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
@@ -29,7 +30,13 @@ class LikeController extends Controller
      */
     public function store(StoreLikeRequest $request)
     {
-        //
+        $data= [];
+        $data[]=[
+            'post_id'=>$request->postID,
+            'user_id'=>Auth::user()->id
+        ];
+        Like::insert($data);
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +68,25 @@ class LikeController extends Controller
      */
     public function destroy(Like $like)
     {
-        //
+        // $user_id = Auth::user()->id;
+
+        // $like = Like::where('post_id', $like->id)
+        //             ->where('user_id', $user_id)
+        //             ->first();
+        // $like->delete();
+        // return redirect()->back();
+        //return dd($like);
+    }
+
+    public function likeDestroy(int $id)
+    {
+        $user_id = Auth::user()->id;
+
+        $like = Like::where('post_id', $id)
+                    ->where('user_id', $user_id)
+                    ->first();
+        $like->delete();
+        return redirect()->back();
+        //return dd($like);
     }
 }

@@ -6,7 +6,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <img class="rounded-full fImg" src="{{Storage::url($user->image)}}" alt=""> <span class="mt-2 ms-2">{{ $user->name }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                @if(Request::is('profile/'.$user->id))
+                  
+                @elseif(Request::is('profile/auth'))
+                    <form class="ms-auto" action="{{url('post/'.$post->id)}}" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit" class="fs-3 ms-auto" ><i class="bi bi-trash3-fill"></i></button>
+                    </form>
+                @endif 
+                    
                 </div>
             <div class="modal-body">
                 @if($post->media->count()>1)
@@ -32,9 +41,26 @@
                         <div>
                             <img class="modalImg" src="{{Storage::url($post->media[0]->media)}}" alt="post-img">
                         </div> 
+                    @endif
+                    @if($post->likes->contains('user_id',Auth::user()->id))
+                        <form action="{{'/likeDelete/'.$post->id}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" ><i class="bi bi-suit-heart-fill fs-3"></i></i></button> {{$post->likes->count()}}
+                        </form>
+                    @else
+                        <form action="/like" method="post">
+                            @csrf
+                            <input type="number" value='{{$post->id}}' hidden name="postID" id="">
+                            <button type="submit" ><i class="bi bi-suit-heart fs-3"></i></button> {{$post->likes->count()}}
+                        </form>
                     @endif                   
                 <div>
-                    
+                    @foreach($post->comments as $comment)
+                        <div>
+                            
+                        </div>
+                    @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

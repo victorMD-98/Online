@@ -87,6 +87,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        
+        $post = Post::findOrFail($post->id);
+    
+        foreach ($post->media as $media) {
+        if(Storage::disk('public')->exists($media->media))
+        {Storage::disk('public')->delete($media->media);}
+    }
+        $post->delete();
+        return redirect()->back();
     }
 }

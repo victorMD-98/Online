@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/{id}/updateProfImg', [ProfileController::class, 'updateProfImg'])->name('profile.updateProfImg');
     Route::get('/profile/{id}', [ProfileController::class, 'profile']);
     Route::resource('/post',PostController::class);
+    Route::resource('/like',LikeController::class);
+    Route::delete('/likeDelete/{id}',[LikeController::class,'likeDestroy']);
     Route::post('/follow/{id}',[FollowerController::class,'follow']);
     Route::delete('/followDelete/{id}',[FollowerController::class,'destroy']);
 });
