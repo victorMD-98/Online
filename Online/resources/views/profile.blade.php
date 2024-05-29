@@ -46,24 +46,24 @@
                 <div class="container text-white my-10 border-bottom border-light" >
                     <div class="relative" >
                         <img class="backImg" src='{{Storage::url($user->background_img)}}' alt="back-img">
-                        <form class="float-end" action="{{url('/profile/'.$user->id.'/updateProfImg')}}" method="post" enctype="multipart/form-data">
+                        <form id="backForm" class="float-end" action="{{url('/profile/'.$user->id.'/updateProfImg')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="my-file-input"><img class="imgp" src="https://st2.depositphotos.com/2498595/5736/v/450/depositphotos_57364439-stock-illustration-photo-camera-icon.jpg" alt=""></label>
                                         <input type="file" id="my-file-input" name="imageBack" class="inpFile" >
-                                        <button type="submit" class="btn btn-dark">Dark</button>
+                                        
                                 </form>
                         <div class="absolute top-44 left-2" >
                             <div class="position-relative divv rounded-full">
                            
                                 <img class="rounded-full profileImg" src='{{Storage::url($user->image)}}' alt="profile-img">
                                 <div class=" d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle label">
-                                <form action="{{url('/profile/'.$user->id.'/updateProfImg')}}" method="post" enctype="multipart/form-data">
+                                <form id="profForm" action="{{url('/profile/'.$user->id.'/updateProfImg')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="my-file-input2"><img class="imgp" src="https://st2.depositphotos.com/2498595/5736/v/450/depositphotos_57364439-stock-illustration-photo-camera-icon.jpg" alt=""></label>
                                         <input type="file" id="my-file-input2" name="image" class="inpFile" >
-                                        <button type="submit" class="btn btn-dark">Dark</button>
+                                        
                                 </form>
                                 </div>
                             </div>
