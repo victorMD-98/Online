@@ -1,8 +1,9 @@
 addEventListener("DOMContentLoaded", (eve) => {
     backImg();
     profImg();
-
+    
 });
+
 
 function backImg () {
     let imp1 = document.querySelector("#my-file-input");

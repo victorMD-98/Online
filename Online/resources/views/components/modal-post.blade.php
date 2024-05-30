@@ -46,7 +46,7 @@
                         <form action="{{'/likeDelete/'.$post->id}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" ><i class="bi bi-suit-heart-fill fs-3"></i></i></button> {{$post->likes->count()}}
+                            <button id="cuore" type="submit" ><i class="bi bi-suit-heart-fill fs-3"></i></i></button> {{$post->likes->count()}}
                         </form>
                     @else
                         <form action="/like" method="post">
@@ -62,6 +62,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div>
+                    <button onclick="prova()" type="button" class="btn btn-dark">Dark</button>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -69,3 +72,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function prova (){
+        fetch()
+    }
+
+</script>
