@@ -6,6 +6,7 @@ use App\Models\Like;
 use App\Http\Requests\StoreLikeRequest;
 use App\Http\Requests\UpdateLikeRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
@@ -30,13 +31,34 @@ class LikeController extends Controller
      */
     public function store(StoreLikeRequest $request)
     {
-        $data= [];
-        $data[]=[
-            'post_id'=>$request->postID,
-            'user_id'=>Auth::user()->id
-        ];
-        Like::insert($data);
-        return redirect()->back();
+       
+         // Logga i dati della richiesta per il debug
+         Log::info('Dati della richiesta: ', $request->all());
+
+         // Logga il token CSRF per verificare se è corretto
+         Log::info('Token CSRF: ', ['csrf_token' => $request->header('X-CSRF-TOKEN')]);
+ 
+         // Valida i dati della richiesta
+         $validated = $request->validate([
+             'post_id' => 'required|integer',
+             'user_id' => 'required|integer',
+         ]);
+ 
+         try {
+             // Creazione del like
+             Like::create([
+                 'post_id' => $validated['post_id'],
+                 'user_id' => $validated['user_id'],
+             ]);
+ 
+             return response()->json(['message' => 'Like aggiunto con successo'], 200);
+         } catch (\Exception $e) {
+             // Logga l'errore per il debug
+             Log::error('Errore: ', ['error' => $e->getMessage()]);
+             return response()->json(['error' => 'Errore interno del server'], 500);
+         }
+
+        
     }
 
     /**

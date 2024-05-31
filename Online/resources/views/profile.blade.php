@@ -100,8 +100,7 @@
                 </div>
                 
             </main>
-           
-            <img src="{{Storage::exists('default/avatar.png')}}" alt="">
+                       
                     @foreach($UserPosts as $key => $post)
                         
                         <x-modal-post :post="$post" :user="$user" :key="$key" />

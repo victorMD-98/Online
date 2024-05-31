@@ -42,6 +42,8 @@
                             <img class="modalImg" src="{{Storage::url($post->media[0]->media)}}" alt="post-img">
                         </div> 
                     @endif
+                    <input type="number" value='{{$post->id}}' hidden name="postID" id="postID{{$key}}">
+                    <input type="number" value='{{Auth::user()->id}}' hidden name="userID" id="userID{{$key}}">
                     @if($post->likes->contains('user_id',Auth::user()->id))
                         <form action="{{'/likeDelete/'.$post->id}}" method="post">
                             @csrf
@@ -51,7 +53,7 @@
                     @else
                         <form action="/like" method="post">
                             @csrf
-                            <input type="number" value='{{$post->id}}' hidden name="postID" id="">
+                            
                             <button type="submit" ><i class="bi bi-suit-heart fs-3"></i></button> {{$post->likes->count()}}
                         </form>
                     @endif                   
@@ -61,9 +63,13 @@
                             
                         </div>
                     @endforeach
+                    
                 </div>
                 <div>
-                    <button onclick="prova()" type="button" class="btn btn-dark">Dark</button>
+                    <button onclick="prova{{$key}}()" type="button" class="btn btn-dark">Dark</button>
+                </div>
+                <div>
+                <h1>{{$key}}</h1>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -74,8 +80,29 @@
 </div>
 
 <script>
-    function prova (){
-        fetch()
+    function prova{{$key}} (){
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let like = {
+            post_id : document.querySelector("#postID{{$key}}").value,
+            user_id : document.querySelector("#userID{{$key}}").value
+        }
+        console.log(like)  
+        fetch("http://127.0.0.1:8000/like",{
+            method: "Post",
+            body:JSON.stringify(like),
+            headers:{"Content-Type" : 'application/json',
+                    "X-CSRF-TOKEN": csrfToken
+            }
+        }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            }).then(data => {
+                console.log(data);
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
     }
 
 </script>
